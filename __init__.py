@@ -1,4 +1,4 @@
-"""Convenience re-exports for shared internal service clients."""
+"""Shared service clients for internal microservices."""
 
 from .utility import (
 	AdminManagementService,
@@ -9,8 +9,8 @@ from .utility import (
 	HealthMonitoringService,
 	NotificationMicroserviceService,
 	ParkingSlotService,
-	UserAuthenticationService,
 	ServiceClient,
+	UserAuthenticationService,
 )
 
 __all__ = [
@@ -25,4 +25,6 @@ __all__ = [
 	"ParkingSlotService",
 	"UserAuthenticationService",
 ]
+
+__version__ = "0.1.0"
 
