@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "internal-services"
-version = "0.1.0"
+version = "0.1.1"
 description = "Shared async HTTP clients for the CO330 microservices stack."
 authors = [{name = "CO3302Group3"}]
 readme = "README.md"

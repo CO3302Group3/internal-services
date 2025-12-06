@@ -1,5 +1,7 @@
 """Shared HTTP utilities for selected internal microservices."""
 
+from __future__ import annotations
+
 import logging
 import os
 from typing import Any, Dict, Optional, Union
@@ -23,22 +25,22 @@ class ServiceClient:
     def _normalise(endpoint: str) -> str:
         return endpoint if endpoint.startswith("/") else f"/{endpoint}"
 
-    async def get(self, endpoint: str, **kwargs) -> httpx.Response:
+    async def get(self, endpoint: str, **kwargs: Any) -> httpx.Response:
         path = self._normalise(endpoint)
         logger.info("GET %s%s", self.base_url, path)
         return await self._client.get(path, **kwargs)
 
-    async def post(self, endpoint: str, **kwargs) -> httpx.Response:
+    async def post(self, endpoint: str, **kwargs: Any) -> httpx.Response:
         path = self._normalise(endpoint)
         logger.info("POST %s%s", self.base_url, path)
         return await self._client.post(path, **kwargs)
 
-    async def put(self, endpoint: str, **kwargs) -> httpx.Response:
+    async def put(self, endpoint: str, **kwargs: Any) -> httpx.Response:
         path = self._normalise(endpoint)
         logger.info("PUT %s%s", self.base_url, path)
         return await self._client.put(path, **kwargs)
 
-    async def delete(self, endpoint: str, **kwargs) -> httpx.Response:
+    async def delete(self, endpoint: str, **kwargs: Any) -> httpx.Response:
         path = self._normalise(endpoint)
         logger.info("DELETE %s%s", self.base_url, path)
         return await self._client.delete(path, **kwargs)
@@ -313,7 +315,10 @@ class UserAuthenticationService:
     async def register_user(self, user_data: Dict[str, Any]) -> httpx.Response:
         return await self.client.post("/register", json=user_data)
 
-    async def login_user(self, credentials: Union[Dict[str, Any], httpx.Auth, Any]) -> httpx.Response:
+    async def login_user(
+        self,
+        credentials: Union[Dict[str, Any], httpx.Auth, Any],
+    ) -> httpx.Response:
         auth_obj: httpx.Auth
         if isinstance(credentials, httpx.Auth):
             auth_obj = credentials
@@ -358,10 +363,3 @@ class UserAuthenticationService:
 
     async def close(self) -> None:
         await self.client.close()
-
-
-
-
-
-    
-
