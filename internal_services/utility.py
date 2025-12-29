@@ -343,15 +343,15 @@ class UserAuthenticationService:
     
     async def get_user_activity(self, token: Union[str, Dict[str, Any]]) -> httpx.Response:
     # If it's already a string, just use it.
-       token_str = token
+        token_str = token
     
     # Handle case if a dict/payload was passed by mistake (legacy support)
-       if isinstance(token, dict):
-         token_str = token.get("token")
-         
-         params = {"token": token_str}
-         return await self.client.get("/users/activity", params=params)
+        if isinstance(token, dict):
+            token_str = token.get("token")
 
+            params = {"token": token_str}
+            return await self.client.get("/users/activity", params=params)
+        
     async def make_admin(self, user_id: Union[int, str]) -> httpx.Response:
         return await self.client.post(f"/user/{user_id}/make_admin")
 
