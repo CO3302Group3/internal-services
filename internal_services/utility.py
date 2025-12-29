@@ -340,6 +340,11 @@ class UserAuthenticationService:
 
     async def get_user(self, user_id: Union[int, str]) -> httpx.Response:
         return await self.client.get(f"/user/{user_id}")
+    
+    async def get_user_activity(self, user_id: Optional[int] = None) -> httpx.Response:
+    
+         params = {"user_id": user_id} if user_id else None
+         return await self.client.get("/users/activity", params=params)
 
     async def make_admin(self, user_id: Union[int, str]) -> httpx.Response:
         return await self.client.post(f"/user/{user_id}/make_admin")
