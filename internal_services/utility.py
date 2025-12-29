@@ -341,9 +341,10 @@ class UserAuthenticationService:
     async def get_user(self, user_id: Union[int, str]) -> httpx.Response:
         return await self.client.get(f"/user/{user_id}")
     
-    async def get_user_activity(self, user_id: Optional[int] = None) -> httpx.Response:
+    async def get_user_activity(self, token:Union[str, Dict[str, Any]]) -> httpx.Response:
     
-         params = {"user_id": user_id} if user_id else None
+         payload = _normalise_token_payload(token)
+         params = {"token": payload.get("token")}
          return await self.client.get("/users/activity", params=params)
 
     async def make_admin(self, user_id: Union[int, str]) -> httpx.Response:
